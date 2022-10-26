@@ -27,8 +27,9 @@ void lireTemp(t_mes tabMesures, int &nbMesures);
 void afficherTemp(t_mes tabMesures, int nbMesures, bool ligneUnique);
 void minmaxTemp(t_mes tabMesures, int nbMesures, float &min, float &max);
 void Tproche0(t_mes tabMesures, int nbMesures, float &T0);
-void afficherExtremums(float min, float max, float T0);
-void afficherEffectifs(t_mes tabMesures, int nbMesures);
+void calculEffectif(t_mes tabMesures, int nbMesures, float borneInf, float borneSup, int &effectif);
+void afficherExtremums(float min, float max, float T0);  // fonction d'affichage
+void afficherEffectifs(t_mes tabMesures, int nbMesures); // fonction d'affichage
 
 // ============================================================== //
 // ====================== Fonction principale =================== //
@@ -40,9 +41,11 @@ int main() {
     int choix;
     bool ligneUnique;
     float min, max, T0;
+    int effectif;
+    float borneInf, borneSup;
 
     // Traitement du choix
-    while (choix != 6) {
+    while (choix != 7) {
 
         switch (choix) {
         case 1:
@@ -64,6 +67,15 @@ int main() {
         case 5:
             afficherEffectifs(tabMesures, nbMesures);
             break;
+        case 6:
+            cout << "Veuillez saisir la borne inférieure de la classe de températures : ";
+            cin >> borneInf;
+            cout << "Veuillez saisir la borne supérieure de la classe de températures : ";
+            cin >> borneSup;
+            calculEffectif(tabMesures, nbMesures, borneInf, borneSup, effectif);
+            cout << "Il y a " << effectif << " mesures de températures comprises entre " << borneInf << " et " << borneSup << endl;
+            break;
+
         default:
             cout << "Choix incorrect" << endl;
             break;
@@ -78,7 +90,8 @@ int main() {
         cout << "(4) Afficher les extremuns" << endl;
         cout << "(5) Afficher les effectifs des 4 classes" << endl;
         cout << "    ]-10, -5] ]-5, 0] ]0, 5] ]5, 10]" << endl;
-        cout << "(6) Quitter?" << endl;
+        cout << "(6) Afficher l'effectif d'une classe" << endl;
+        cout << "(7) Quitter?" << endl;
         cout << endl;
         cout << "Votre choix ? ";
         cin >> choix;
@@ -116,6 +129,7 @@ void afficherTemp(t_mes tabMesures, int nbMesures, bool ligneUnique) {
 }
 
 void minmaxTemp(t_mes tabMesures, int nbMesures, float &min, float &max) {
+    // Initialisation des variables min et max
     min = tabMesures[0];
     max = tabMesures[0];
 
@@ -130,11 +144,20 @@ void minmaxTemp(t_mes tabMesures, int nbMesures, float &min, float &max) {
 }
 
 void Tproche0(t_mes tabMesures, int nbMesures, float &T0) {
+    // Initialisation de la variable T0
     T0 = tabMesures[0];
 
     for (int i = 0; i < nbMesures; i++) {     // On parcourt le tableau de mesures
         if (fabs(tabMesures[i]) < fabs(T0)) { // Si la valeur absolue de la mesure est plus petite que la valeur absolue de la température la plus proche de 0
             T0 = tabMesures[i];               // On la stocke dans la variable T0
+        }
+    }
+}
+
+void calculEffectif(t_mes tabMesures, int nbMesures, float borneInf, float borneSup, int &effectif) {
+    for (int i = 0; i < nbMesures; i++) {                            // On parcourt le tableau de mesures
+        if (tabMesures[i] > borneInf && tabMesures[i] <= borneSup) { // Si la valeur est comprise entre les bornes
+            effectif++;                                              // On incrémente l'effectif
         }
     }
 }
