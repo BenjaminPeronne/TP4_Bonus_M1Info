@@ -123,3 +123,71 @@ Le sous-programme reçoit en entrée le tableau des mesures, le nombre des mesur
 
 ---
 
+5. Faire la vue externe puis écrire l'algorithme du sous-programme minmaxTemp() dont le but est de trouver la température minimale et la température maximale de la série de mesures.
+Ce sous-programme doit recevoir le tableau de mesures et le nombre de ces mesures. Il doit renvoyer les deux valeurs correspondant au minimum et au maximum des valeurs du tableau de mesures.
+
+    Voici l'algorithme du sous-programme minmaxTemp() :
+
+    ```cpp
+    minmaxTemp(tabMesures, nbMesures, min, max)
+    {
+        min ← tabMesures[1]
+        max ← tabMesures[1]
+        pour i allant de 2 à nbMesures
+        {
+            si tabMesures[i] < min
+            {
+                min ← tabMesures[i]
+            }
+            sinon si tabMesures[i] > max
+            {
+                max ← tabMesures[i]
+            }
+        }
+    }
+    ```
+
+    ### <center> Explication </center>
+
+    - La première ligne permet d'initialiser la variable min avec la première valeur du tableau de mesures.
+    - La deuxième ligne permet d'initialiser la variable max avec la première valeur du tableau de mesures.
+    - La troisième ligne permet de parcourir le tableau de mesures à partir de la deuxième valeur.
+    - La quatrième ligne permet de comparer la valeur de la mesure n°i avec la valeur de la variable min.
+    - La cinquième ligne permet de mettre à jour la valeur de la variable min si la valeur de la mesure n°i est inférieure à la valeur de la variable min.
+    - La sixième ligne permet de comparer la valeur de la mesure n°i avec la valeur de la variable max.
+    - La septième ligne permet de mettre à jour la valeur de la variable max si la valeur de la mesure n°i est supérieure à la valeur de la variable max.
+
+6. Faire la vue externe puis écrire l'algorithme du sous-programmeTproche0() dont le but est de trouver la mesure de température la plus proche de 0°C.
+Ce sous-programme doit recevoir le tableau de mesures et le nombre de ces mesures. Il doit renvoyer la valeur la plus proche de 0°C.
+Si deux mesures de signes opposés ont la même valeur absolue, on retient la mesure positive. L'algorithme de ce sous-programme utilise la fonction fabs() de la bibliothèque standard sur les mathématiques qui renvoie la valeur absolue d'un nombre réel.
+
+    Voici l'algorithme du sous-programme Tproche0() :
+
+    ```cpp
+    Tproche0(tabMesures, nbMesures, proche0)
+    {
+        proche0 ← tabMesures[1]
+        pour i allant de 2 à nbMesures
+        {
+            si fabs(tabMesures[i]) < fabs(proche0)
+            {
+                proche0 ← tabMesures[i]
+            }
+        }
+    }
+    ```
+
+    ### <center> Explication </center>
+
+    - La première ligne permet d'initialiser la variable proche0 avec la première valeur du tableau de mesures.
+    - La deuxième ligne permet de parcourir le tableau de mesures à partir de la deuxième valeur.
+    - La troisième ligne permet de comparer la valeur absolue de la mesure n°i avec la valeur absolue de la variable proche0.
+    - La quatrième ligne permet de mettre à jour la valeur de la variable proche0 si la valeur absolue de la mesure n°i est inférieure à la valeur absolue de la variable proche0.
+
+    >POurquoi utiliser la fonction fabs() ?
+
+    ```cpp
+    fabs(-5.5) = 5.5
+    fabs(5.5) = 5.5
+    ```
+    La fonction `fabs()` permet de renvoyer la valeur absolue d'un nombre réel.
